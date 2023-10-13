@@ -35,7 +35,7 @@ export class EditPostComponent {
 
   ngOnInit() {
     this.imageUrl.addValidators([
-      Validators.pattern('https:\/\/*')
+      Validators.pattern('http(s)?:\/\/.*')
     ]);
     this.body.addValidators([
       Validators.required
@@ -53,6 +53,6 @@ export class EditPostComponent {
   }
 
   submit() {
-    this.postService.edit(this.post, this.photo);
+    this.postService.edit(this.post, this.photo).subscribe(response => console.log(response));
   }
 }

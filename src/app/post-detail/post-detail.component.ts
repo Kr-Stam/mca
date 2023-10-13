@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IComment, IPhoto, IPost } from '../post.model';
 import { HttpClient } from '@angular/common/http';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -14,7 +15,7 @@ export class PostDetailComponent {
   comments: IComment[] = [];
 
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private postService: PostService, private router: Router) {}
 
   ngOnInit() {
     this.photo = this.route.snapshot.data['photo'];
@@ -27,5 +28,14 @@ export class PostDetailComponent {
 
     let id: Number = +this.route.snapshot.params['id'];
 
+    
   }
+
+  deletePost(){
+    if(confirm("Are you sure you want to delete the post?")) {
+      this.postService.delete(this.post!).subscribe(response => console.log(response));
+      this.router.navigate(['']);
+    }
+  }
+
 }

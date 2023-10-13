@@ -48,6 +48,6 @@ export class CreatePostComponent {
   }
 
   submit() {
-    this.postService.add(this.post, this.photo);
+    this.postService.add(this.post, this.photo).subscribe(result => console.log(result));
   }
 }

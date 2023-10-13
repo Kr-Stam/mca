@@ -1,6 +1,6 @@
 <h3>Create a Post</h3>
 
-<form class="form-group" #postForm="ngForm">
+<form class="form-group" #postForm="ngForm" (ngSubmit)="submit()">
   <label for="title">Title</label>
   <input
     name="title"
