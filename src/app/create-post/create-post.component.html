@@ -1,0 +1,42 @@
+<h3>Create a Post</h3>
+
+<form class="form-group" #postForm="ngForm">
+  <label for="title">Title</label>
+  <input
+    name="title"
+    type="text"
+    placeholder="Post Title"
+    class="form-control"
+    [formControl]="title"
+    [(ngModel)]="post.title"
+  />
+  <div *ngIf="title.invalid && title.touched">
+    <em style="color: red">Title required</em>
+  </div>
+
+  <label for="body">Content</label
+  ><textarea
+    class="form-control"
+    id="exampleFormControlTextarea1"
+    rows="3"
+    [formControl]="body"
+    [(ngModel)]="post.body"
+  ></textarea>
+  <div *ngIf="body.invalid && body.touched">
+    <em style="color: red">Body required</em>
+  </div>
+
+  <label for="Image">Image</label>
+  <input
+    name="imageUrl"
+    type="text"
+    class="form-control"
+    [formControl]="imageUrl"
+    [(ngModel)]="photo.url"
+  />
+  <div *ngIf="imageUrl.invalid && imageUrl.touched">
+    <em style="color: red">Please enter a valid url</em>
+  </div>
+
+  <button class="btn btn-primary mt-2" [disabled]="postForm.invalid">Create Post</button>
+</form>

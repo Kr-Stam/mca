@@ -1,1 +1,10 @@
-<p>feed works!</p>
+<div class="row">
+  <div class="col-6" *ngFor="let post of posts; index as i">
+    <div>
+      <app-post-thumbnail
+        [post]="posts[i]"
+        [photo]="photos[i]"
+      ></app-post-thumbnail>
+    </div>
+  </div>
+</div>

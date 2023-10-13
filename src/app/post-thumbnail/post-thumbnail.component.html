@@ -1,1 +1,12 @@
-<p>post-thumbnail works!</p>
+<div class="card p-2 m-1 row" style="height: 350px;">
+    <div class="col-6 text-center">
+      <img [src]="photo?.thumbnailUrl" [routerLink]="['/posts', post?.id]" />
+      <div class="card-body">
+        <h4 class="card-title">{{ post?.title }}</h4>
+      </div>
+    </div>
+    <div class="col-6 h-100" style="border-left: 1px solid gray;">
+      <p>{{ post?.body }}</p>
+    </div>
+  
+</div>

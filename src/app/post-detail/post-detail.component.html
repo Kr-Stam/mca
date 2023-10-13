@@ -1,1 +1,14 @@
-<p>post-detail works!</p>
+<div class="card p-2 m-1">
+    <h1 class="">{{post?.title}}</h1>
+    <!-- skoro gotov sum -->
+  <div class="row">
+    <div class="col-6">
+      <img [src]="photo?.url" />
+    </div>
+    <div class="col-6 overflow-auto" style="height:600px;">
+      <div *ngFor="let comment of comments">
+        <app-comment [comment]="comment"></app-comment>
+      </div>
+    </div>
+  </div>
+</div>

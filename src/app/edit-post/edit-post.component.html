@@ -1,0 +1,37 @@
+<h3>
+  Edit a Post
+  <form class="form-group">
+    <label for="title">Title</label>
+    <input
+      name="title"
+      type="text"
+      placeholder="Post Title"
+      class="form-control"
+      [formControl]="title"
+      [(ngModel)]="post.title"
+    />
+
+    <label for="body">Content</label
+    ><textarea
+      class="form-control"
+      id="exampleFormControlTextarea1"
+      rows="3"
+      [formControl]="body"
+      [(ngModel)]="post.body"
+    ></textarea>
+
+    <label for="Image">Image</label>
+    <input
+      name="imageUrl"
+      type="text"
+      class="form-control"
+      [formControl]="imageUrl"
+      [(ngModel)]="photo.url"
+    />
+    <div *ngIf="imageUrl.invalid && imageUrl.touched">
+      <em style="color: red">Please enter a valid url</em>
+    </div>
+
+    <button class="btn btn-primary mt-2">Create Post</button>
+  </form>
+</h3>
