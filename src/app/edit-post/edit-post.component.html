@@ -38,5 +38,6 @@
     <em style="color: red">Please enter a valid url</em>
   </div>
 
-  <button class="btn btn-primary mt-2" [disabled]="postForm.invalid">Create Post</button>
+  <button class="btn btn-primary mt-2" [disabled]="postForm.invalid">Edit Post</button>
+  <button class="btn btn-danger mt-2 ms-2" (click)="deletePost()">Delete</button>
 </form>

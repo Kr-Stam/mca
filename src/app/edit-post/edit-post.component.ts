@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPhoto, IPost } from '../post.model';
 import { PostService } from '../post.service';
 
@@ -11,7 +11,7 @@ import { PostService } from '../post.service';
 })
 export class EditPostComponent {
 
-  constructor(private route: ActivatedRoute, private postService: PostService) {}
+  constructor(private route: ActivatedRoute, private postService: PostService, private router: Router) {}
 
   title: FormControl = new FormControl('');
   body: FormControl = new FormControl('');
@@ -54,5 +54,12 @@ export class EditPostComponent {
 
   submit() {
     this.postService.edit(this.post, this.photo).subscribe(response => console.log(response));
+  }
+
+  deletePost(){
+    if(confirm("Are you sure you want to delete the post?")) {
+      this.postService.delete(this.post!).subscribe(response => console.log(response));
+      this.router.navigate(['']);
+    }
   }
 }
