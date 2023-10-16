@@ -1,53 +1,56 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { IPhoto, IPost } from '../post.model';
+import { IPhoto } from '../post.model';
 import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.css']
+  styleUrls: ['./create-post.component.css'],
 })
 export class CreatePostComponent {
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService
+  ) {}
 
-  constructor(private route: ActivatedRoute, private postService: PostService) {}
-
+  id: FormControl = new FormControl('');
+  albumId: FormControl = new FormControl('');
   title: FormControl = new FormControl('');
-  body: FormControl = new FormControl('');
-  imageUrl: FormControl = new FormControl('');
+  url: FormControl = new FormControl('');
+  thumbnailUrl: FormControl = new FormControl('');
+  postForm: FormGroup = new FormGroup([
+    this.id,
+    this.title,
+    this.url,
+    this.thumbnailUrl,
+  ]);
 
-  post: IPost = {
-    id: 0,
-    userId: 0,
-    title: '',
-    body: ''
-  };
   photo: IPhoto = {
     id: 0,
+    albumId: 0,
     title: '',
     url: '',
-    thumbnailUrl: ''
+    thumbnailUrl: '',
   };
-   
-  
-  id: number = 0;
 
-  ngOnInit(){
-    this.imageUrl.addValidators([
-      Validators.pattern('https:\/\/*'),
-      Validators.required
+  ngOnInit() {
+    this.url.addValidators([
+      Validators.pattern('http(s)?://.*'),
+      Validators.required,
     ]);
-    this.body.addValidators([
-      Validators.required
+    this.thumbnailUrl.addValidators([
+      Validators.pattern('http(s)?://.*'),
+      Validators.required,
     ]);
-    this.title.addValidators([
-      Validators.required
-    ])
+    this.id.addValidators([Validators.required]);
+    this.albumId.addValidators([Validators.required]);
+    this.title.addValidators([Validators.required]);
   }
 
   submit() {
-    this.postService.add(this.post, this.photo).subscribe(result => console.log(result));
+    this.postService.add(this.photo).subscribe((result) => console.log(result));
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { IComment, IPhoto, IPost } from './post.model';
+import { IPhoto } from './post.model';
 import {
   ActivatedRouteSnapshot,
   ResolveFn,
@@ -12,44 +12,34 @@ import { catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class PostService {
-  delete(post: IPost) {
+  delete(photo: IPhoto) {
     return this.http
-      .delete<IPost>('https://jsonplaceholder.typicode.com/posts/' + post.id)
+      .delete<IPhoto>('https://jsonplaceholder.typicode.com/photos/' + photo.id)
       .pipe(
-        catchError((err) => throwError(() => new Error('Problem with delete')))
+        catchError((err) => throwError(() => new Error('Problem with deleting photo')))
       );
   }
 
-  add(post: IPost, photo: IPhoto) {
+  add(photo: IPhoto) {
     return this.http
-      .post<IPost>('https://jsonplaceholder.typicode.com/posts', post)
+      .post<IPhoto>('https://jsonplaceholder.typicode.com/photos', photo)
       .pipe(
-        catchError((err) => throwError(() => new Error('Problem with post')))
+        catchError((err) => throwError(() => new Error('Problem with adding photo')))
       );
   }
 
-  edit(post: IPost, photo: IPhoto) {
+  edit(photo: IPhoto) {
     return this.http
-      .put<IPost>('https://jsonplaceholder.typicode.com/posts/' + post.id, post)
+      .put<IPhoto>('https://jsonplaceholder.typicode.com/photos/' + photo.id, photo)
       .pipe(
-        catchError((err) => throwError(() => new Error('Problem with put')))
+        catchError((err) => throwError(() => new Error('Problem with editing photo')))
       );
   }
   constructor(private http: HttpClient) {}
-
-  getPosts() {
-    return this.http.get<IPost[]>('http://jsonplaceholder.typicode.com/posts');
-  }
-
+  
   getPhotos() {
     return this.http.get<IPhoto[]>(
       'https://jsonplaceholder.typicode.com/photos'
-    );
-  }
-
-  getPostById(id: number) {
-    return this.http.get<IPost>(
-      'https://jsonplaceholder.typicode.com/posts/' + id
     );
   }
 
@@ -59,32 +49,13 @@ export class PostService {
     );
   }
 
-  getCommentsById(id: number) {
-    return this.http.get<IComment[]>(
-      'https://jsonplaceholder.typicode.com/posts/' + id + '/comments'
-    );
-  }
 }
-
-export const postsResolver: ResolveFn<IPost[]> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(PostService).getPosts();
-};
 
 export const photosResolver: ResolveFn<IPhoto[]> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   return inject(PostService).getPhotos();
-};
-
-export const postResolver: ResolveFn<IPost> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(PostService).getPostById(+route.params['id']);
 };
 
 export const photoResolver: ResolveFn<IPhoto> = (
@@ -94,9 +65,3 @@ export const photoResolver: ResolveFn<IPhoto> = (
   return inject(PostService).getPhotoById(+route.params['id']);
 };
 
-export const commentsResolver: ResolveFn<IComment[]> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(PostService).getCommentsById(+route.params['id']);
-};

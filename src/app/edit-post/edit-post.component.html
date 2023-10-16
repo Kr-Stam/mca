@@ -1,6 +1,32 @@
 <h3>Edit a Post</h3>
 
-<form class="form-group" #postForm="ngForm" (ngSubmit)="submit()">
+<form class="form-group" [formGroup]="postForm" (ngSubmit)="submit()">
+  <label for="albumId">ID</label>
+  <input
+    name="albumId"
+    type="number"
+    placeholder="0"
+    class="form-control"
+    [formControl]="id"
+    [(ngModel)]="photo.id"
+  />
+  <div *ngIf="id.invalid && id.touched">
+    <em style="color: red">ID required</em>
+  </div>
+
+  <label for="albumId">Album ID</label>
+  <input
+    name="id"
+    type="number"
+    placeholder="0"
+    class="form-control"
+    [formControl]="albumId"
+    [(ngModel)]="photo.albumId"
+  />
+  <div *ngIf="albumId.invalid && albumId.touched">
+    <em style="color: red">Album ID required</em>
+  </div>
+
   <label for="title">Title</label>
   <input
     name="title"
@@ -8,36 +34,38 @@
     placeholder="Post Title"
     class="form-control"
     [formControl]="title"
-    [(ngModel)]="post.title"
+    [(ngModel)]="photo.title"
   />
   <div *ngIf="title.invalid && title.touched">
     <em style="color: red">Title required</em>
   </div>
 
-  <label for="body">Content</label
-  ><textarea
-    class="form-control"
-    id="exampleFormControlTextarea1"
-    rows="3"
-    [formControl]="body"
-    [(ngModel)]="post.body"
-  ></textarea>
-  <div *ngIf="body.invalid && body.touched">
-    <em style="color: red">Body required</em>
-  </div>
-
-  <label for="Image">Image</label>
+  <label for="url">Image</label>
   <input
-    name="imageUrl"
+    name="url"
     type="text"
     class="form-control"
-    [formControl]="imageUrl"
+    [formControl]="url"
     [(ngModel)]="photo.url"
   />
-  <div *ngIf="imageUrl.invalid && imageUrl.touched">
+  <div *ngIf="url.invalid && url.touched">
     <em style="color: red">Please enter a valid url</em>
   </div>
 
-  <button class="btn btn-primary mt-2" [disabled]="postForm.invalid">Edit Post</button>
-  <button class="btn btn-danger mt-2 ms-2" (click)="deletePost()">Delete</button>
+  <label for="thumbnailUrl">Thumbnail Image</label>
+  <input
+    name="thumbnailUrl"
+    type="text"
+    class="form-control"
+    [formControl]="thumbnailUrl"
+    [(ngModel)]="photo.thumbnailUrl"
+  />
+  <div *ngIf="thumbnailUrl.invalid && thumbnailUrl.touched">
+    <em style="color: red">Please enter a valid url</em>
+  </div>
+
+  <button class="btn btn-primary mt-2" [disabled]="postForm.invalid">
+    Edit Post
+  </button>
+  <button class="btn btn-danger ms-2 mt-2" (click)="deletePost()">Delete Post</button>
 </form>

@@ -8,8 +8,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
-import { commentsResolver, photoResolver, photosResolver, postResolver, postsResolver } from './post.service';
-import { CommentComponent } from './comment/comment.component';
+import { photoResolver, photosResolver } from './post.service';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditPostComponent } from './edit-post/edit-post.component';
@@ -21,7 +20,6 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     PostThumbnailComponent,
     PostDetailComponent,
     NavbarComponent,
-    CommentComponent,
     CreatePostComponent,
     EditPostComponent
   ],
@@ -31,9 +29,9 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     FormsModule,
     RouterModule.forRoot([
       {path: 'posts/create', component: CreatePostComponent},
-      {path: 'posts/edit/:id', component: EditPostComponent, resolve: {post: postResolver, photo: photoResolver}},
-      {path: 'posts/:id', component: PostDetailComponent, resolve: {post: postResolver, photo: photoResolver, comments: commentsResolver}},
-      {path: 'posts', component: FeedComponent, resolve: {posts: postsResolver, photos: photosResolver}},
+      {path: 'posts/edit/:id', component: EditPostComponent, resolve: { photo: photoResolver}},
+      {path: 'posts/:id', component: PostDetailComponent, resolve: { photo: photoResolver}},
+      {path: 'posts', component: FeedComponent, resolve: { photos: photosResolver}},
       {path: '', redirectTo: 'posts', pathMatch: 'full'}
     ]),
     HttpClientModule

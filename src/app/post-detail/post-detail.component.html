@@ -1,8 +1,8 @@
 <div class="card p-2 m-1">
   <div class="row">
-    <h1 class="col">{{ post?.title }}</h1>
+    <h1 class="col">{{ photo?.title }}</h1>
     <div class="col-1">
-      <button class="btn btn-outline-secondary" [routerLink]="['/posts/edit/', post?.id]">
+      <button class="btn btn-outline-secondary" [routerLink]="['/posts/edit/', photo?.id]">
         <i class="fa fa-edit fa-lg"></i>
       </button>
       <button class="btn btn-outline-danger" (click)="deletePost()">
@@ -10,14 +10,9 @@
       </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-6">
+  <div class="row text-center">
+    <div class="col">
       <img [src]="photo?.url" />
-    </div>
-    <div class="col-6 overflow-auto" style="height: 600px">
-      <div *ngFor="let comment of comments">
-        <app-comment [comment]="comment"></app-comment>
-      </div>
     </div>
   </div>
 </div>

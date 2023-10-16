@@ -1,9 +1,8 @@
 <div class="row">
-  <div class="col-6" *ngFor="let post of posts; index as i">
+  <div class="col-6" *ngFor="let photo of photos">
     <div>
       <app-post-thumbnail
-        [post]="posts[i]"
-        [photo]="photos[i]"
+        [photo]="photo"
       ></app-post-thumbnail>
     </div>
   </div>
